@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Connection Diagnostic Test Collection
+    match /_system_health_check/{checkId} {
+      allow read, write: if true;
+    }
+
+    // 2. Real-time Multi-device Collections
+    match /sanctuary_events/{eventId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /sister_events/{eventId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /prayer_wall/{prayerId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if true;
+    }
+
+    match /roster_members/{memberId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /app_branding_assets/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /sanctuary_broadcasts/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 3. User Profiles Collection
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 4. Prayer Requests Collection
+    match /prayers/{prayerId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 5. Gatherings and Small Group Schedule
+    match /gatherings/{gatheringId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 6. Global Catch-All
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
